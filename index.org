@@ -1,0 +1,128 @@
+#+Title: Creature Chart
+* TODO Set up Project Directory
+
+#+name: make-projectdir
+#+begin_src bash :noeval 
+mkdir creature-chart
+cd creature-chart
+python3 -m venv .
+source bin/activate
+
+pip install -r requirements/base.txt
+#+end_src
+
+
+* TODO Requirements
+#+name: base-requirements
+#+begin_src org :tangle requirements/base.txt 
+fbs
+fbs[upload]
+PySide6
+pillow
+#+end_src
+
+
+* TODO GUI
+Mostly gonna be a list of sliders with a few different types of widgets.
+
+** DONE Base Program
+Base program can be run with:
+#+name: run-program
+#+begin_src bash :async 
+source bin/activate
+fbs run
+#+end_src
+
+#+RESULTS:
+
+
+** TODO Body Type
+A trianglar space made of of the spectrums for
+Endomorph, Ectomorh, and Mesomorph
+
+Lets use
+qtexperimentassets:
+*** PNG 27_1_5 Game UI Kit:
+ - 014 Body Composition background
+ - 063 Body type selector background
+ - 116 Button for More Options
+ - 009 Creature Picture overlay
+
+*** PNG 27_3_5 Game UI Kit
+ - 001 main window background
+** TODO Diet
+A slider from herbavore to carnivore.
+Perhaps with a button for toggling dietary restrictions?
+
+
+** TODO Body Composition
+A space ranging from organic to non organic, and genetic to magical
+
+Widget should consist of 3 QAbstractSliders that go from 0 - 100
+but are connected in such a way that they are bounded.
+ie 33% from all is in the middle, 100 in one is in the corner etc.
+
+Should look like an upside down triangle with gridlines inside and a cursor
+Values are listed on a display under the figure
+Looks something like this:
+
+| Body Type |
+|-----------|
+| +------+  |
+| \      /  |
+|  \    /   |
+|   \  /    |
+|    \/     |
+|-----------|
+
+| Body Type | Percentage |
+|-----------+------------|
+| Endomorph |            |
+| Ectomorph |            |
+| Mesomorph |            |
+
+
+** TODO Anatomy Axis
+A slider ranging from anthropomorphic to non-anthropomorphic
+
+Widget should consist of 2 QAbstractsliders ranging from -100 to 100.
+should form a qudadrent plane  with a readout underneith.
+
+
+** TODO Intelligence Axis
+A slider from lacks a nervous system to omniscient
+
+** TODO Behavior Axis
+Ranges from Domesticated/Social to Feral
+** TODO Creature Name
+A field to enter the creature's name
+** TODO Enter/Select Pronouns
+A list of check boxes, and a space to enter pronouns.
+
+** TODO Picture of Creature
+Button to open a file select dialog that can select images with certain requirements.
+
+** TODO Gender Selection
+A list of Check Boxes, and a text field.
+
+** TODO Button to Generate Id Template
+Button that when pressed prompts for a filename to save the creature id to, then runs the backend to generate the card.
+
+** TODO Credits Page
+A page that links to T&R and my twitters I guess?
+
+* Backend Stuff
+To make the creature cards you'll take the uploaded picture, and the values from the selectors
+and add it to a template of a creature id card. this can then theoretically be printed or somefin.
+
+** TODO Qr Code
+A Qr code containing the binary representation of the cards values would be pretty awesome?
+
+** TODO Card Template
+
+
+
+* Local Variables                                                  :noexport:
+# Local Variables:
+# org-src-preserve-indentation: t
+# End:

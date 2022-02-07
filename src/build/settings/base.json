@@ -1,0 +1,8 @@
+{
+    "app_name": "Creature-Picker",
+    "author": "Delta Smith",
+    "main_module": "src/main/python/main.py",
+    "version": "0.0.0",
+    "gpg_key": "F07DD1CFC6E1E11B9F5DD6ADB84C8B0AC730C298",
+    "gpg_name": "Delta Smith"
+}
