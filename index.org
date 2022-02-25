@@ -26,6 +26,36 @@ pillow
 Mostly gonna be a list of sliders with a few different types of widgets.
 
 ** DONE Base Program
+#+name: main
+#+begin_src ipython :tangle src/main/python/main.py :noweb yes 
+from fbs_runtime.application_context.PySide6 import ApplicationContext
+from PySide6.QtWidgets import *
+
+import sys
+
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("My App")
+
+        button = QPushButton("Press me for a dialog!")
+        button.clicked.connect(self.about_dialog)
+        self.setCentralWidget(button)
+
+    <<about-page>>
+
+
+if __name__ == '__main__':
+    appctxt = ApplicationContext()       # 1. Instantiate ApplicationContext
+    window = MainWindow()
+    window.resize(250, 150)
+    window.show()
+    exit_code = appctxt.app.exec()      # 2. Invoke appctxt.app.exec()
+    sys.exit(exit_code)
+#+end_src
+
 Base program can be run with:
 #+name: run-program
 #+begin_src bash :async 
@@ -33,12 +63,20 @@ source bin/activate
 fbs run
 #+end_src
 
+#+RESULTS: run-program
+
 #+RESULTS:
 
 
 ** TODO Body Type
 A trianglar space made of of the spectrums for
 Endomorph, Ectomorh, and Mesomorph
+
+#+name: body-type
+#+begin_src ipython
+#+end_src
+
+
 
 Lets use
 qtexperimentassets:
@@ -56,7 +94,7 @@ Perhaps with a button for toggling dietary restrictions?
 
 
 ** TODO Body Composition
-A space ranging from organic to non organic, and genetic to magical
+
 
 Widget should consist of 3 QAbstractSliders that go from 0 - 100
 but are connected in such a way that they are bounded.
@@ -110,6 +148,32 @@ Button that when pressed prompts for a filename to save the creature id to, then
 
 ** TODO Credits Page
 A page that links to T&R and my twitters I guess?
+
+Filled in a template that I'm gonna replace with stuff later.
+It seems that QLables can be given html which is cool.
+
+#+name: about-page
+#+begin_src ipython
+def about_dialog(self, s):
+    dlg = QMessageBox(self)
+    dlg.setWindowTitle("About")
+
+    msg = "<center>"\
+        "Creature Creator"\
+        "&#8291;" \
+        "<img src=icon.svg>" \
+        "</center>" \
+        "<p>Version 31.4.159.265358<br/>" \
+        "Copyright &copy; Company Inc.</p>"
+
+    dlg.setText(msg)
+    button = dlg.exec_()
+
+    if button == QMessageBox.Ok:
+        print("OK!")
+#+end_src
+
+** TODO 
 
 * Backend Stuff
 To make the creature cards you'll take the uploaded picture, and the values from the selectors
