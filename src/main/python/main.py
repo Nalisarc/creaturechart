@@ -1,4 +1,5 @@
 from fbs_runtime.application_context.PySide6 import ApplicationContext
+from fbs_runtime import PUBLIC_SETTINGS
 from PySide6.QtWidgets import *
 
 import sys
@@ -23,8 +24,10 @@ class MainWindow(QMainWindow):
             "&#8291;" \
             "<img src=icon.svg>" \
             "</center>" \
-            "<p>Version 31.4.159.265358<br/>" \
-            "Copyright &copy; Company Inc.</p>"
+            f"<p>Version {PUBLIC_SETTINGS['version']}<br/>" \
+            "Copyright &copy; Delta Studio</p>"\
+            "<p>Program by Delta<br/>"\
+            "Concept by T&R</p>"
     
         dlg.setText(msg)
         button = dlg.exec_()
