@@ -31,19 +31,25 @@ Mostly gonna be a list of sliders with a few different types of widgets.
 from fbs_runtime.application_context.PySide6 import ApplicationContext
 from fbs_runtime import PUBLIC_SETTINGS
 from PySide6.QtWidgets import *
+from PySide6.QtGui import *
+from PySide6.QtCore import *
 
 import sys
 
+<<body-type>>
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("My App")
+        self.initUI()
 
-        button = QPushButton("Press me for a dialog!")
-        button.clicked.connect(self.about_dialog)
-        self.setCentralWidget(button)
+    def initUI(self):
+        
+        self.setWindowTitle("My App")
+        bt = BodyTypeWidget()
+        self.setCentralWidget(bt)
+
 
     <<about-page>>
 
@@ -59,12 +65,11 @@ if __name__ == '__main__':
 
 Base program can be run with:
 #+name: run-program
-#+begin_src bash :async 
-source bin/activate
+#+begin_src bash :async
+pwd
+source ../bin/activate
 fbs run
 #+end_src
-
-#+RESULTS: run-program
 
 #+RESULTS:
 
@@ -75,6 +80,59 @@ Endomorph, Ectomorh, and Mesomorph
 
 #+name: body-type
 #+begin_src ipython
+class _bodytypechart(QWidget):
+
+    def __init__(self):
+
+        super().__init__()
+
+        self.setSizePolicy(
+            QSizePolicy.MinimumExpanding,
+            QSizePolicy.MinimumExpanding
+        )
+
+    def sizeHint(self):
+        return QSize(40,120)
+
+    def paintEvent(self, e):
+        painter = QPainter(self)
+
+        brush = QBrush()
+        brush.setColor(QColor('black'))
+        brush.setStyle(Qt.SolidPattern)
+        rect = QRect(0, 0, painter.device().width(), painter.device().height())
+        painter.fillRect(rect, brush)
+
+class BodyTypeWidget(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        grid = QGridLayout()
+        self._endo = QSlider(Qt.Horizontal)
+        self._ecto = QSlider(Qt.Horizontal)
+        self._meso = QSlider(Qt.Horizontal)
+
+        self._endolabel = QLabel("0")
+        self._ectolabel = QLabel("0")
+        self._mesolabel = QLabel("0")
+
+        self._chart = _bodytypechart()
+
+        grid.addWidget(self._chart,0,0)
+        grid.addWidget(self._endo,1,0)
+        grid.addWidget(self._endolabel,1,1)
+
+        grid.addWidget(self._ecto,2,0)
+        grid.addWidget(self._ectolabel,2,1)
+
+        grid.addWidget(self._meso,3,0)
+        grid.addWidget(self._mesolabel,3,1)
+        
+        self.setLayout(grid)
+
+    
+    
 #+end_src
 
 
@@ -120,6 +178,7 @@ Looks something like this:
 | Ectomorph |            |
 | Mesomorph |            |
 
+for now I'm representing the sliders as actual sliders that can be updated.
 
 ** TODO Anatomy Axis
 A slider ranging from anthropomorphic to non-anthropomorphic
@@ -153,6 +212,9 @@ A page that links to T&R and my twitters I guess?
 Filled in a template that I'm gonna replace with stuff later.
 It seems that QLables can be given html which is cool.
 
+The fstring inserts the version number in.
+
+Consider adding in a portraits and links to twitter.
 #+name: about-page
 #+begin_src ipython
 def about_dialog(self, s):
@@ -166,8 +228,8 @@ def about_dialog(self, s):
         "</center>" \
         f"<p>Version {PUBLIC_SETTINGS['version']}<br/>" \
         "Copyright &copy; Delta Studio</p>"\
-        "<p>Program by Delta<br/>"\
-        "Concept by T&R</p>"
+        "<p>Program by <a href=\"https://twitter.com/nalisarc\"> Delta</a><br/>"\
+        "Concept by <a href=\"https://twitter.com/Mecknavorz\">T&R</a></p>"
 
     dlg.setText(msg)
     button = dlg.exec_()
@@ -176,18 +238,21 @@ def about_dialog(self, s):
         print("OK!")
 #+end_src
 
-** TODO 
+** TODO Menu
+
 
 * Backend Stuff
 To make the creature cards you'll take the uploaded picture, and the values from the selectors
 and add it to a template of a creature id card. this can then theoretically be printed or somefin.
 
+ 
 ** TODO Qr Code
 A Qr code containing the binary representation of the cards values would be pretty awesome?
 
 ** TODO Card Template
-
-
+We should probably just use HTML to define the overall template.
+The idea is that it looks like a drivers license but it has the values that the
+user selected.
 
 * Local Variables                                                  :noexport:
 # Local Variables:
