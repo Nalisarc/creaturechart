@@ -254,6 +254,9 @@ We should probably just use HTML to define the overall template.
 The idea is that it looks like a drivers license but it has the values that the
 user selected.
 
+* References
+https://pythonbasics.org/pyqt-grid/
+https://www.pythonguis.com/tutorials/creating-your-own-custom-widgets/
 * Local Variables                                                  :noexport:
 # Local Variables:
 # org-src-preserve-indentation: t
