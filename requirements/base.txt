@@ -1,4 +1,4 @@
 fbs
-fbs[upload]
 PySide6
 pillow
+qrcode

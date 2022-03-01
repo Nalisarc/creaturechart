@@ -39,9 +39,20 @@ class BodyTypeWidget(QWidget):
         self._ecto = QSlider(Qt.Horizontal)
         self._meso = QSlider(Qt.Horizontal)
 
-        self._endolabel = QLabel("0")
-        self._ectolabel = QLabel("0")
-        self._mesolabel = QLabel("0")
+        self._endolabel = QSpinBox()
+        self._endolabel.setMinimum(0)
+        self._endolabel.setMaximum(100)
+        self._endolabel.setValue(33.3)
+        
+        self._ectolabel = QSpinBox()
+        self._ectolabel.setMinimum(0)
+        self._ectolabel.setMaximum(100)
+        self._ectolabel.setValue(33.3)
+        
+        self._mesolabel = QSpinBox()
+        self._mesolabel.setMinimum(0)
+        self._mesolabel.setMaximum(100)
+        self._mesolabel.setValue(33.3)
 
         self._chart = _bodytypechart()
 
@@ -68,7 +79,7 @@ class MainWindow(QMainWindow):
 
     def initUI(self):
         
-        self.setWindowTitle("My App")
+        self.setWindowTitle("Creature Creator")
         bt = BodyTypeWidget()
         self.setCentralWidget(bt)
 

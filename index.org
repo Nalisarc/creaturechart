@@ -16,9 +16,9 @@ pip install -r requirements/base.txt
 #+name: base-requirements
 #+begin_src org :tangle requirements/base.txt 
 fbs
-fbs[upload]
 PySide6
 pillow
+qrcode
 #+end_src
 
 
@@ -46,7 +46,7 @@ class MainWindow(QMainWindow):
 
     def initUI(self):
         
-        self.setWindowTitle("My App")
+        self.setWindowTitle("Creature Creator")
         bt = BodyTypeWidget()
         self.setCentralWidget(bt)
 
@@ -113,9 +113,20 @@ class BodyTypeWidget(QWidget):
         self._ecto = QSlider(Qt.Horizontal)
         self._meso = QSlider(Qt.Horizontal)
 
-        self._endolabel = QLabel("0")
-        self._ectolabel = QLabel("0")
-        self._mesolabel = QLabel("0")
+        self._endolabel = QSpinBox()
+        self._endolabel.setMinimum(0)
+        self._endolabel.setMaximum(100)
+        self._endolabel.setValue(33.3)
+        
+        self._ectolabel = QSpinBox()
+        self._ectolabel.setMinimum(0)
+        self._ectolabel.setMaximum(100)
+        self._ectolabel.setValue(33.3)
+        
+        self._mesolabel = QSpinBox()
+        self._mesolabel.setMinimum(0)
+        self._mesolabel.setMaximum(100)
+        self._mesolabel.setValue(33.3)
 
         self._chart = _bodytypechart()
 
@@ -136,23 +147,6 @@ class BodyTypeWidget(QWidget):
 #+end_src
 
 
-
-Lets use
-qtexperimentassets:
-*** PNG 27_1_5 Game UI Kit:
- - 014 Body Composition background
- - 063 Body type selector background
- - 116 Button for More Options
- - 009 Creature Picture overlay
-
-*** PNG 27_3_5 Game UI Kit
- - 001 main window background
-** TODO Diet
-A slider from herbavore to carnivore.
-Perhaps with a button for toggling dietary restrictions?
-
-
-** TODO Body Composition
 
 
 Widget should consist of 3 QAbstractSliders that go from 0 - 100
@@ -180,20 +174,79 @@ Looks something like this:
 
 for now I'm representing the sliders as actual sliders that can be updated.
 
+
+Lets use
+qtexperimentassets:
+*** PNG 27_1_5 Game UI Kit:
+ - 014 Body Composition background
+ - 063 Body type selector background
+ - 116 Button for More Options
+ - 009 Creature Picture overlay
+
+*** PNG 27_3_5 Game UI Kit
+ - 001 main window background
+** TODO Diet
+A slider from herbavore to carnivore.
+Perhaps with a button for toggling dietary restrictions?
+
+#+name: diet-widget
+#+begin_src ipython
+class DietWidget(QWidget):
+
+    def __init__(self):
+
+        super().__init__()
+
+        pass
+#+end_src
+
 ** TODO Anatomy Axis
 A slider ranging from anthropomorphic to non-anthropomorphic
 
 Widget should consist of 2 QAbstractsliders ranging from -100 to 100.
 should form a qudadrent plane  with a readout underneith.
 
+#+name: anatomy-widget
+#+begin_src ipython
+class AnatomyWidget(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        pass
+#+end_src
+
 
 ** TODO Intelligence Axis
 A slider from lacks a nervous system to omniscient
 
+#+name: anatomy-widget
+#+begin_src ipython
+class AnatomyWidget(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        pass
+#+end_src
+
 ** TODO Behavior Axis
 Ranges from Domesticated/Social to Feral
+
+#+name: behavior-widget
+#+begin_src ipython
+class BehaviorWidget(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        pass
+#+end_src
+
 ** TODO Creature Name
 A field to enter the creature's name
+
+
 ** TODO Enter/Select Pronouns
 A list of check boxes, and a space to enter pronouns.
 
@@ -240,12 +293,32 @@ def about_dialog(self, s):
 
 ** TODO Menu
 
+#+name: anatomy-widget
+#+begin_src ipython
+class Menu(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        pass
+#+end_src
+
 
 * Backend Stuff
+
 To make the creature cards you'll take the uploaded picture, and the values from the selectors
 and add it to a template of a creature id card. this can then theoretically be printed or somefin.
 
- 
+** TODO Creature Object
+The abstract item that gets encoded into the QR code
+should take values given by the gui.
+
+#+name: creature-object
+#+begin_src ipython
+class Creature:
+    pass
+#+end_src
+
 ** TODO Qr Code
 A Qr code containing the binary representation of the cards values would be pretty awesome?
 
@@ -254,9 +327,16 @@ We should probably just use HTML to define the overall template.
 The idea is that it looks like a drivers license but it has the values that the
 user selected.
 
+*** Size when printed
+The card should fit in a  2 1/8" x 3 3/8" card so that it can *theoretically* be printed onto
+an id Card.
+
+
 * References
 https://pythonbasics.org/pyqt-grid/
 https://www.pythonguis.com/tutorials/creating-your-own-custom-widgets/
+https://www.alphacard.com/id-cards/plastic-card-sizes
+
 * Local Variables                                                  :noexport:
 # Local Variables:
 # org-src-preserve-indentation: t
