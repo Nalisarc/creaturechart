@@ -252,11 +252,11 @@ A list of check boxes, and a space to enter pronouns.
 
 ** TODO Picture of Creature
 Button to open a file select dialog that can select images with certain requirements.
-
+then displays the picture next to it.
 ** TODO Gender Selection
 A list of Check Boxes, and a text field.
 
-** TODO Button to Generate Id Template
+** TODO Button to Generate Id 
 Button that when pressed prompts for a filename to save the creature id to, then runs the backend to generate the card.
 
 ** TODO Credits Page
